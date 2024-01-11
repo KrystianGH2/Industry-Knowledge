@@ -6,7 +6,7 @@ if (!MONGODB_URI) {
   throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
 }
 
-async function dbConnect() {
+async function dbConnectUsers() {
   if (mongoose.connection.readyState >= 1) {
     return;
   }
@@ -17,4 +17,4 @@ async function dbConnect() {
   });
 }
 
-export default dbConnect;
+export default dbConnectUsers;
