@@ -26,7 +26,8 @@ const UserList = () => {
       <ul>
         {users.map((user) => (
           <li key={user._id}>
-            <strong>{user.name}</strong> - {user.email}
+           <strong>{user.name.charAt(0).toUpperCase() + user.name.slice(1)}</strong> - {user.email}
+
           </li>
         ))}
       </ul>

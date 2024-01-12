@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = 'mongodb://localhost:27017/users';
+const MONGODB_URI = 'mongodb://localhost:27017/safetyconcerns';
 
 if (!MONGODB_URI) {
   throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
 }
 
-async function dbConnectUsers() {
+async function dbConnectUserReports() {
   if (mongoose.connection.readyState >= 1) {
     return;
   }
@@ -17,4 +17,4 @@ async function dbConnectUsers() {
   });
 }
 
-export default dbConnectUsers;
+export default dbConnectUserReports;

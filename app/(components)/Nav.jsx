@@ -20,6 +20,11 @@ const Nav = async () => {
               {session ? (
                 <>
                   <Link href="/api/auth/signout?callbackUrl=/">Logout</Link>
+                  <img
+                    className="w-5 h-5 mt-1"
+                    src="https://www.svgrepo.com/show/31480/notification-bell.svg"
+                    alt="notification"
+                  />
                 </>
               ) : (
                 <>
