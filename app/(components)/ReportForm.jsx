@@ -9,10 +9,11 @@ const ReportForm = () => {
     //   redirect("/api/auth/signin?callbackUrl=/Member");
     // },
   });
-
-  if (session) {
-    console.log("Session exists", session?.user?.email && session.user?.name);
-  }
+// const sessionUserName = session
+//   if (session) {
+//     console.log("Session exists", session?.user?.email && session.user?.name);
+//     console.log("Session USER name", sessionUserName)
+//   }
   const router = useRouter();
   const [reportData, setReportData] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
@@ -70,7 +71,6 @@ const ReportForm = () => {
             onChange={handleOnChange}
             required={true}
             type="text"
-            id="firstName"
             name="username"
             value={reportData.username}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
@@ -78,7 +78,6 @@ const ReportForm = () => {
         </div>
         <div className="mb-4">
           <label
-            htmlFor="firstName"
             className="block text-sm font-semibold text-gray-600 mb-2"
           >
             Title
@@ -87,7 +86,6 @@ const ReportForm = () => {
             onChange={handleOnChange}
             required={true}
             type="text"
-            id="firstName"
             name="title"
             value={reportData.title}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
@@ -111,32 +109,6 @@ const ReportForm = () => {
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
-
-        {/* <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-semibold text-gray-600 mb-2">
-            Email:
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-            required
-          />
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="password" className="block text-sm font-semibold text-gray-600 mb-2">
-            Password:
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-            required
-          />
-        </div> */}
 
         <div className="mb-4">
           <label
