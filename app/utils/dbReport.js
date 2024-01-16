@@ -3,19 +3,22 @@ import mongoose from 'mongoose';
 
 const MONGODB_URI_REPORTS = process.env.MONGODB_URI_REPORTS || 'mongodb://localhost:27017/safetyconcerns';
 
-if (!MONGODB_URI_REPORTS) {
-  throw new Error('Please define the MONGODB_URI_REPORTS environment variable inside .env.local');
-}
+console.log('MONGODB_URI_REPORTS:', MONGODB_URI_REPORTS);
 
 async function dbConnectUserReports() {
-  if (mongoose.connection.readyState >= 1) {
-    return;
+  try {
+    if (mongoose.connection.readyState === 0) {
+      await mongoose.connect(MONGODB_URI_REPORTS, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      });
+      console.log('Connected to MongoDB (Safety Concerns)');
+    } else {
+      console.log('Already connected to MongoDB (Safety Concerns)');
+    }
+  } catch (error) {
+    console.error('Error connecting to MongoDB (Safety Concerns):', error.message);
   }
-
-  return mongoose.connect(MONGODB_URI_REPORTS, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
 }
 
 export default dbConnectUserReports;
