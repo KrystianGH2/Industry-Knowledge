@@ -9,9 +9,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" data-theme="cupcake">
+    <html lang="en" data-theme="dark">
       <body className="bg-gray-100">
-        <Nav />
+        <Nav  />
         <AuthProvider>
           <div className="m-2">{children}</div>{" "}
         </AuthProvider>

@@ -1,19 +1,9 @@
+"use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
-import GoogleMapComponent from "./GoogleMaps";
+import LeafletMap from "./LeafletMap";
+
 const ReportForm = () => {
-  const { data: session } = useSession({
-    required: true,
-    // onUnauthenticated() {
-    //   redirect("/api/auth/signin?callbackUrl=/Member");
-    // },
-  });
-// const sessionUserName = session
-//   if (session) {
-//     console.log("Session exists", session?.user?.email && session.user?.name);
-//     console.log("Session USER name", sessionUserName)
-//   }
   const router = useRouter();
   const [reportData, setReportData] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
@@ -42,6 +32,7 @@ const ReportForm = () => {
       setErrorMessage(response.message);
     } else {
       alert("Report successfully created");
+      resetForm();
       setTimeout(() => {
         router.refresh();
         router.push("/");
@@ -54,6 +45,10 @@ const ReportForm = () => {
       ...prevState,
       location,
     }));
+  };
+
+  const resetForm = () => {
+    setReportData({});
   };
 
   return (
@@ -72,14 +67,13 @@ const ReportForm = () => {
             required={true}
             type="text"
             name="username"
-            value={reportData.username}
+            value={reportData.username || ""}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
+
         <div className="mb-4">
-          <label
-            className="block text-sm font-semibold text-gray-600 mb-2"
-          >
+          <label className="block text-sm font-semibold text-gray-600 mb-2">
             Title
           </label>
           <input
@@ -87,7 +81,7 @@ const ReportForm = () => {
             required={true}
             type="text"
             name="title"
-            value={reportData.title}
+            value={reportData.title || ""}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -105,7 +99,7 @@ const ReportForm = () => {
             type="text"
             id="concernReport"
             name="description"
-            value={reportData.description}
+            value={reportData.description || ""}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -117,7 +111,7 @@ const ReportForm = () => {
           >
             Location
           </label>
-          <GoogleMapComponent onLocationChange={handleLocationChange} />
+          <LeafletMap onLocationChange={handleLocationChange} />
         </div>
 
         <button
