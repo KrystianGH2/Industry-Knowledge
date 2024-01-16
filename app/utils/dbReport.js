@@ -8,7 +8,10 @@ console.log('MONGODB_URI_REPORTS:', MONGODB_URI_REPORTS);
 async function dbConnectUserReports() {
   try {
     if (mongoose.connection.readyState === 0) {
-      await mongoose.connect(MONGODB_URI_REPORTS);
+      await mongoose.connect(MONGODB_URI_REPORTS, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      });
       console.log('Connected to MongoDB (Safety Concerns)');
     } else {
       console.log('Already connected to MongoDB (Safety Concerns)');

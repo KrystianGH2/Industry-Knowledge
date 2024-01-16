@@ -8,7 +8,10 @@ console.log('MONGODB_URI_USERS:', MONGODB_URI_USERS);
 async function dbConnectUsers() {
   try {
     if (mongoose.connection.readyState === 0) {
-      await mongoose.connect(MONGODB_URI_USERS);
+      await mongoose.connect(MONGODB_URI_USERS, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      });
       console.log('Connected to MongoDB (Users)');
     } else {
       console.log('Already connected to MongoDB (Users)');
