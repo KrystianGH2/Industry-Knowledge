@@ -6,6 +6,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-control-geocoder/dist/Control.Geocoder.css";
 import "leaflet-control-geocoder/dist/Control.Geocoder.js";
+import Image from "next/image";
 
 // Define the UserReportList component
 const UserReportList = () => {
@@ -34,6 +35,7 @@ const UserReportList = () => {
   const mapContainerStyle = {
     height: "200px",
     width: "100%",
+    filter: "invert(80%) hue-rotate(190deg) brightness(95%) contrast(90%)",
   };
 
   // Return the JSX for the component
@@ -85,7 +87,7 @@ const UserReportList = () => {
                     opacity: 0,
                     weight: 0,
                     fillColor: "#FF0000",
-                    fillOpacity: 0.50,
+                    fillOpacity: 0.5,
                   }}
                 />
               </MapContainer>
@@ -97,10 +99,12 @@ const UserReportList = () => {
               <div className="card-actions justify-start flex flex-row items-center">
                 <div className="flex flex-row justify-center items-center gap-2">
                   <span>By</span>
-                  <img
+                  <Image
                     className="w-5 h-5"
                     src="https://www.svgrepo.com/show/295402/user-profile.svg"
                     alt="avatar"
+                    width={24} // Replace with the desired width
+                    height={24} // Replace with the desired height
                   />
                 </div>
                 <p>
