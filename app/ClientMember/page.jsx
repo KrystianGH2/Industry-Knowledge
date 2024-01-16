@@ -10,7 +10,7 @@ const ClientMember = () => {
     },
   });
   return (
-    <div>
+    <div data-theme="dark">
       <h1>Member Client Session</h1>
       <p>{session?.user?.name}</p>
       <p>{session?.user?.email}</p>

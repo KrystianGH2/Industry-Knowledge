@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
+import dynamic from "next/dynamic";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-control-geocoder/dist/Control.Geocoder.css";
@@ -126,4 +127,4 @@ const LeafletMap = ({ onLocationChange }) => {
   );
 };
 
-export default LeafletMap;
+export default dynamic(() => import("leaflet").then((L) => LeafletMap), { ssr: false });
