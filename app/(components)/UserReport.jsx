@@ -32,7 +32,7 @@ const UserReportList = () => {
 
   // Style for the Leaflet Map container
   const mapContainerStyle = {
-    height: "260px",
+    height: "200px",
     width: "100%",
   };
 
@@ -41,58 +41,56 @@ const UserReportList = () => {
     <>
       <h2>User Report List</h2>
       <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-        {/* Map each user report to a figure with a Leaflet Map */}
         {userReports.map((report) => (
           <figure className="card w-96 bg-base-100 shadow-xl" key={report._id}>
-            {/* MapContainer renders the Leaflet Map */}
-            <MapContainer
-              center={[
-                report.location.coordinates[1],
-                report.location.coordinates[0],
-              ]}
-              zoom={17}
-              style={mapContainerStyle}
-            >
-              <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution="© OpenStreetMap contributors"
-              />
-
-              {/* Marker component places a marker on the map */}
-              <Marker
-                position={[
-                  report.location.coordinates[1],
-                  report.location.coordinates[0],
-                ]}
-                icon={
-                  new L.Icon({
-                    iconUrl: "/img/your-marker-icon.png", // Update the path accordingly
-                    iconSize: [25, 41],
-                    iconAnchor: [12, 41],
-                    popupAnchor: [1, -34],
-                    shadowSize: [41, 41],
-                  })
-                }
-              />
-
-              {/* Circle component draws a circle around the marker */}
-              <Circle
+            {typeof window !== "undefined" && (
+              <MapContainer
                 center={[
                   report.location.coordinates[1],
                   report.location.coordinates[0],
                 ]}
-                radius={15} // Set the radius of the circle in meters
-                pathOptions={{
-                  color: "#FF0000", // Set the stroke color of the circle
-                  opacity: 0, // Set the stroke opacity of the circle
-                  weight: 0, // Set the stroke weight of the circle
-                  fillColor: "#FF0000", // Set the fill color of the circle
-                  fillOpacity: 0.15, // Set the fill opacity of the circle
-                }}
-              />
-            </MapContainer>
+                zoom={17}
+                style={mapContainerStyle}
+                zoomControl={false}
+                scrollWheelZoom={false}
+                dragging={false}
+              >
+                <TileLayer
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  attribution="© OpenStreetMap contributors"
+                />
+                <Marker
+                  position={[
+                    report.location.coordinates[1],
+                    report.location.coordinates[0],
+                  ]}
+                  icon={
+                    new L.Icon({
+                      iconUrl: "/img/your-marker-icon.png",
+                      iconSize: [25, 41],
+                      iconAnchor: [12, 41],
+                      popupAnchor: [1, -34],
+                      shadowSize: [41, 41],
+                    })
+                  }
+                />
+                <Circle
+                  center={[
+                    report.location.coordinates[1],
+                    report.location.coordinates[0],
+                  ]}
+                  radius={15}
+                  pathOptions={{
+                    color: "#FF0000",
+                    opacity: 0,
+                    weight: 0,
+                    fillColor: "#FF0000",
+                    fillOpacity: 0.50,
+                  }}
+                />
+              </MapContainer>
+            )}
 
-            {/* Figcaption with report details */}
             <figcaption className="card-body">
               <h2 className="card-title">{report.title}</h2>
               <p>{report.description}</p>
@@ -103,10 +101,9 @@ const UserReportList = () => {
                     className="w-5 h-5"
                     src="https://www.svgrepo.com/show/295402/user-profile.svg"
                     alt="avatar"
-                  />{" "}
+                  />
                 </div>
                 <p>
-                  {" "}
                   {(report.username &&
                     report.username.charAt(0).toUpperCase() +
                       report.username.slice(1)) ||
