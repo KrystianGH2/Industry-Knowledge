@@ -1,6 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
-import { GoogleMap, LoadScript, Marker, Circle } from "@react-google-maps/api";
+import React from "react";
+import { MapContainer, TileLayer, Marker, Circle } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import "leaflet-control-geocoder/dist/Control.Geocoder.css";
+import "leaflet-control-geocoder/dist/Control.Geocoder.js";
 
 // Define the UserReportList component
 const UserReportList = () => {
@@ -25,70 +30,67 @@ const UserReportList = () => {
     fetchUserReport();
   }, []);
 
-  // Style for the Google Map container
+  // Style for the Leaflet Map container
   const mapContainerStyle = {
-    height: "300px",
+    height: "260px",
     width: "100%",
-  };
-
-  // Options to make the map non-interactive
-  const mapOptions = {
-    disableDefaultUI: true, // Disable default UI controls
-    draggable: false, // Disable dragging the map
-    zoomControl: false, // Disable zooming
-    scrollwheel: false, // Disable scrolling with the mouse wheel
-    disableDoubleClickZoom: true, // Disable double click zoom
   };
 
   // Return the JSX for the component
   return (
     <>
-      {" "}
-        <h2>User Report List</h2>
+      <h2>User Report List</h2>
       <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-        {/* Map each user report to a figure with a Google Map */}
+        {/* Map each user report to a figure with a Leaflet Map */}
         {userReports.map((report) => (
           <figure className="card w-96 bg-base-100 shadow-xl" key={report._id}>
-            {/* LoadScript is used to load the Google Maps API */}
-            <LoadScript
-              googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+            {/* MapContainer renders the Leaflet Map */}
+            <MapContainer
+              center={[
+                report.location.coordinates[1],
+                report.location.coordinates[0],
+              ]}
+              zoom={17}
+              style={mapContainerStyle}
             >
-              {/* GoogleMap component renders the Google Map */}
-              <GoogleMap
-                mapContainerStyle={mapContainerStyle}
-                center={{
-                  lat: report.location.coordinates[1],
-                  lng: report.location.coordinates[0],
-                }}
-                zoom={17}
-                options={mapOptions}
-              >
-                {/* Marker component places a marker on the map */}
-                <Marker
-                  position={{
-                    lat: report.location.coordinates[1],
-                    lng: report.location.coordinates[0],
-                  }}
-                  title={report.title}
-                />
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution="© OpenStreetMap contributors"
+              />
 
-                {/* Circle component draws a circle around the marker */}
-                <Circle
-                  center={{
-                    lat: report.location.coordinates[1],
-                    lng: report.location.coordinates[0],
-                  }}
-                  radius={15} // Set the radius of the circle in meters
-                  options={{
-                    strokeColor: "#FF0000", // Set the stroke color of the circle
-                    strokeOpacity: 0, // Set the stroke opacity of the circle
-                    strokeWeight: 0, // Set the stroke weight of the circle
-                    fillColor: "#FF0000", // Set the fill color of the circle
-                    fillOpacity: 0.15, // Set the fill opacity of the circle
-                  }}
-                />
-              </GoogleMap>
-            </LoadScript>
+              {/* Marker component places a marker on the map */}
+              <Marker
+                position={[
+                  report.location.coordinates[1],
+                  report.location.coordinates[0],
+                ]}
+                icon={
+                  new L.Icon({
+                    iconUrl: "/img/your-marker-icon.png", // Update the path accordingly
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41],
+                  })
+                }
+              />
+
+              {/* Circle component draws a circle around the marker */}
+              <Circle
+                center={[
+                  report.location.coordinates[1],
+                  report.location.coordinates[0],
+                ]}
+                radius={15} // Set the radius of the circle in meters
+                pathOptions={{
+                  color: "#FF0000", // Set the stroke color of the circle
+                  opacity: 0, // Set the stroke opacity of the circle
+                  weight: 0, // Set the stroke weight of the circle
+                  fillColor: "#FF0000", // Set the fill color of the circle
+                  fillOpacity: 0.15, // Set the fill opacity of the circle
+                }}
+              />
+            </MapContainer>
 
             {/* Figcaption with report details */}
             <figcaption className="card-body">
@@ -105,9 +107,10 @@ const UserReportList = () => {
                 </div>
                 <p>
                   {" "}
-                  {report.username &&
+                  {(report.username &&
                     report.username.charAt(0).toUpperCase() +
-                      report.username.slice(1)|| "Person"}
+                      report.username.slice(1)) ||
+                    "Person"}
                 </p>
               </div>
             </figcaption>
@@ -119,5 +122,4 @@ const UserReportList = () => {
 };
 
 // Export the component
-
 export default UserReportList;
