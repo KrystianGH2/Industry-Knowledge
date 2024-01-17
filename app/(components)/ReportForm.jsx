@@ -9,7 +9,7 @@ const ReportForm = () => {
   const { data: session } = useSession({
     required: true,
     onUnauthenticated() {
-      redirect("/api/auth/signin?callbackUrl=/Member");
+      redirect("/api/auth/signin?callbackUrl=/ClientMember");
     },
   });
   const router = useRouter();
