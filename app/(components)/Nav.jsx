@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import options from "../api/auth/[...nextauth]/options";
+import Image from "next/image";
 
 const Nav = async () => {
   const session = await getServerSession(options);
@@ -37,14 +38,17 @@ const Nav = async () => {
                   {session ? (
                     <>
                       <Link href="/api/auth/signout?callbackUrl=/">Logout</Link>
-                      <img
-                        className="w-5 h-5 mt-1"
+                      <Image
+                        className="w-5 h-5"
                         src="https://www.svgrepo.com/show/31480/notification-bell.svg"
-                        alt="notification"
+                        alt="avatar"
+                        width={24} // Replace with the desired width
+                        height={24} // Replace with the desired height
                       />
                     </>
                   ) : (
                     <>
+                     
                       <Link
                         className=" hover:text-white transition"
                         href="/api/auth/signin"

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import dynamic from "next/dynamic";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -14,13 +14,19 @@ const LeafletMap = ({ onLocationChange }) => {
   const [marker, setMarker] = useState(null);
 
   const mapRef = useRef(null);
-  var greenIcon = new L.Icon({
-    iconUrl: greenIconUrl,
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41],
-  });
+
+  // Use useMemo for greenIcon to avoid re-creating it on every render
+  const greenIcon = useMemo(
+    () =>
+      new L.Icon({
+        iconUrl: greenIconUrl,
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41],
+      }),
+    []
+  );
 
   useEffect(() => {
     if (!mapRef.current) {
@@ -68,7 +74,7 @@ const LeafletMap = ({ onLocationChange }) => {
       map.setView([position.lat, position.lng], 18);
       marker.setLatLng([position.lat, position.lng]);
     }
-  }, [map, position]);
+  }, [map, position, greenIcon, marker, onLocationChange]);
 
   const handleMapClick = (event) => {
     const { latlng } = event;
@@ -103,6 +109,7 @@ const LeafletMap = ({ onLocationChange }) => {
   const containerStyle = {
     width: "100%",
     height: "400px",
+    filter: "invert(80%) hue-rotate(190deg) brightness(95%) contrast(90%)",
   };
 
   return (
@@ -127,4 +134,6 @@ const LeafletMap = ({ onLocationChange }) => {
   );
 };
 
-export default dynamic(() => import("leaflet").then((L) => LeafletMap), { ssr: false });
+export default dynamic(() => import("leaflet").then((L) => LeafletMap), {
+  ssr: false,
+});
