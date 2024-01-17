@@ -1,14 +1,14 @@
 // dbConnectUsers.js
 import mongoose from 'mongoose';
 
-const MONGODB_URI_USERS = process.env.MONGODB_URI_USERS || 'mongodb://localhost:27017/users';
+const MONGODB_URI= process.env.MONGODB_URI;
 
-console.log('MONGODB_URI_USERS:', MONGODB_URI_USERS);
+console.log('MONGODB_URI_USERS:', MONGODB_URI);
 
 async function dbConnectUsers() {
   try {
     if (mongoose.connection.readyState === 0) {
-      await mongoose.connect(MONGODB_URI_USERS, {
+      await mongoose.connect(MONGODB_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       });
