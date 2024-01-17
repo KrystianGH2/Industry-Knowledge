@@ -1,14 +1,14 @@
 // dbConnectUserReports.js
 import mongoose from 'mongoose';
 
-const MONGODB_URI_REPORTS = process.env.MONGODB_URI_REPORTS || 'mongodb://localhost:27017/safetyconcerns';
+const MONGODB_URI = process.env.MONGODB_URI ;
 
-console.log('MONGODB_URI_REPORTS:', MONGODB_URI_REPORTS);
+console.log('MONGODB_URI_REPORTS:', MONGODB_URI);
 
 async function dbConnectUserReports() {
   try {
     if (mongoose.connection.readyState === 0) {
-      await mongoose.connect(MONGODB_URI_REPORTS, {
+      await mongoose.connect(MONGODB_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       });
