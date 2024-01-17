@@ -15,7 +15,7 @@ const Nav = async () => {
         >
           <header className="bg-[#1A1A1A] text-[#8E8E9A] flex  items-center w-full">
             <nav className="flex w-full justify-between px-10 py-4">
-              <div>Logo</div>
+              <div className="text-xl font-bold">BlockGuardian</div>
               <div className="flex gap-10">
                 <div className="flex gap-10">
                   <Link className=" hover:text-white transition" href="/">

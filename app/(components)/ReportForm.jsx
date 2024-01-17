@@ -9,7 +9,7 @@ const ReportForm = () => {
   const { data: session } = useSession({
     required: true,
     onUnauthenticated() {
-      redirect("/api/auth/signin?callbackUrl=/Member");
+      redirect("/api/auth/signin?callbackUrl=/ClientMember");
     },
   });
   const router = useRouter();
@@ -62,7 +62,11 @@ const ReportForm = () => {
   return (
     <>
       <h1>Member Client Session</h1>
-      <p>{session?.user?.name}</p>
+      <h3>Logged in as</h3>
+      <p>
+        {session?.user?.name.charAt(0).toLocaleUpperCase() +
+          session?.user?.name.slice(1)}
+      </p>
       <p>{session?.user?.email}</p>
       <p>{session?.user?.role}</p>
       <div className="max-w-2xl">
