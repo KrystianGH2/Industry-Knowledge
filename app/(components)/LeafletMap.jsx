@@ -12,10 +12,10 @@ const LeafletMap = ({ onLocationChange }) => {
   const [position, setPosition] = useState({ lat: 59.921, lng: 10.7512 });
   const [address, setAddress] = useState("");
   const [marker, setMarker] = useState(null);
+  const [location, setLocation] = useState("");
 
   const mapRef = useRef(null);
 
-  // Use useMemo for greenIcon to avoid re-creating it on every render
   const greenIcon = useMemo(
     () =>
       new L.Icon({
@@ -54,13 +54,23 @@ const LeafletMap = ({ onLocationChange }) => {
         radius: 8,
       }).addTo(leafletMap);
 
-      // Listen for dragend event on the marker
       marker.on("dragend", (event) => {
         const newLatLng = event.target.getLatLng();
-        console.log("New Marker Location:", newLatLng);
         setPosition({ lat: newLatLng.lat, lng: newLatLng.lng });
         onLocationChange({ latitude: newLatLng.lat, longitude: newLatLng.lng });
         circle.setLatLng([newLatLng.lat, newLatLng.lng]);
+        setLocation([newLatLng.lat, newLatLng.lng]);
+
+        // Reverse geocoding to get the address
+        const geocoder = L.Control.Geocoder.nominatim({});
+        geocoder.reverse(
+          newLatLng,
+          leafletMap.options.crs.scale(leafletMap.getZoom()),
+          (results) => {
+            const address = results[0]?.name || "";
+            setAddress(address);
+          }
+        );
       });
 
       setMap(leafletMap);
@@ -81,55 +91,27 @@ const LeafletMap = ({ onLocationChange }) => {
     if (latlng) {
       const lat = latlng.lat;
       const lng = latlng.lng;
-      console.log("New Position:", { lat, lng });
       setPosition({ lat, lng });
       setMarker({ lat, lng });
       onLocationChange({ latitude: lat, longitude: lng });
     }
   };
 
-  const handleAddressChange = () => {
-    console.log("New Address:", address);
-    const geocoder = L.Control.Geocoder.nominatim({});
-    geocoder.geocode(address, (results) => {
-      console.log("Geocoding Results:", results);
-      const center = results[0]?.center;
-      if (center) {
-        const lat = center.lat;
-        const lng = center.lng;
-        console.log("Geocoded Position:", { lat, lng });
-        setPosition({ lat, lng });
-        onLocationChange({ latitude: lat, longitude: lng });
-      } else {
-        console.error("Geocode was not successful");
-      }
-    });
-  };
-
   const containerStyle = {
     width: "100%",
-    height: "400px",
+    height: "70vh",
     filter: "invert(80%) hue-rotate(190deg) brightness(95%) contrast(90%)",
   };
 
   return (
-    <div data-theme="dark">
+    <div>
       <div id="leaflet-map" style={containerStyle} onClick={handleMapClick} />
-      <div className="flex flex-col mt-2 py-2">
-        <label
-          htmlFor="location"
-          className="block text-sm font-semibold text-gray-600 mb-2 pl-1"
-        >
-          Or Enter a location
-        </label>
-        <input
-          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-          type="text"
-          placeholder="Enter an address"
-          onChange={(e) => setAddress(e.target.value)}
-          onBlur={handleAddressChange}
-        />
-      </div>
+      <label
+        htmlFor="location"
+        className="block text-base font-semibold mb-2 pl-1 text-[#adadad]"
+      >
+        Location: <span>{address}</span>
+      </label>
     </div>
   );
 };
