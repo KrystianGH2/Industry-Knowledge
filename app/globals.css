@@ -40,3 +40,12 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.rotate-hover {
+  transition: transform 0.5s ease-in-out;
+}
+
+.rotate-hover:hover {
+  color:white;
+  transform: rotate(180deg);
+}
