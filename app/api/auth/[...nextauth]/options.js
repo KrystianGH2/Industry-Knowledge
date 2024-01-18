@@ -73,7 +73,7 @@ export const options = {
               // console.log("Password matches");
               delete foundUser.password;
 
-              foundUser["role"] = "Unverified Email";
+              foundUser["role"] = "BlockGuardian User";
               foundUser["email"] = credentials.email;
               return foundUser;
             }
