@@ -41,7 +41,7 @@ const UserReportList = () => {
   // Return the JSX for the component
   return (
     <>
-      <h2>User Report List</h2>
+      <h1>User Report List</h1>
       <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
         {userReports.map((report) => (
           <figure className="card w-96 bg-base-100 shadow-xl" key={report._id}>
