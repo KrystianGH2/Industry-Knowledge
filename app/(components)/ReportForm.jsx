@@ -2,16 +2,16 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import LeafletMap from "./LeafletMap";
-import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
+// import { useSession } from "next-auth/react";
+// import { redirect } from "next/navigation";
 
 const ReportForm = () => {
-  const { data: session } = useSession({
-    required: true,
-    onUnauthenticated() {
-      redirect("/api/auth/signin?callbackUrl=/ClientMember");
-    },
-  });
+  // const { data: session } = useSession({
+  //   required: true,
+  //   onUnauthenticated() {
+  //     redirect("/api/auth/signin?callbackUrl=/ClientMember");
+  //   },
+  // });
   const router = useRouter();
   const [reportData, setReportData] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
@@ -64,14 +64,14 @@ const ReportForm = () => {
     <>
       <div className="h-28 flex  flex-col justify-center md:mb-10 ">
         <h1>Member Reports</h1>
-        <div className="flex gap-2 items-center">
+        {/* <div className="flex gap-2 items-center">
             <h3 className="text-sm"> Logged in as </h3>
           <p className="text-sm">
             {session?.user?.name.charAt(0).toLocaleUpperCase() +
               session?.user?.name.slice(1)}
           </p> <span className="pb-[1.5px]">|</span>
         <p className="text-sm">{session?.user?.role}</p>
-        </div>
+        </div> */}
 
       </div>
       <div className="w-full">
