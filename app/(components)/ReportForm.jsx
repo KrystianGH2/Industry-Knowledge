@@ -45,6 +45,7 @@ const ReportForm = () => {
         router.refresh();
         router.push("/");
       }, 3000);
+      window.location.reload();
     }
   };
 
@@ -135,6 +136,7 @@ const ReportForm = () => {
             >
               Submit
             </button>
+            <p className="text-red-500">{errorMessage}</p>
           </div>
 
           <div className="mb-4 w-full md:h-screen">
@@ -145,7 +147,6 @@ const ReportForm = () => {
             <LeafletMap onLocationChange={handleLocationChange} />
           </div>
         </form>
-        <p className="text-red-500">{errorMessage}</p>
       </div>
     </>
   );
