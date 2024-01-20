@@ -68,9 +68,9 @@ const UserReportList = () => {
                   ]}
                   icon={
                     new L.Icon({
-                      iconUrl: "/img/your-marker-icon.png",
-                      iconSize: [25, 41],
-                      iconAnchor: [12, 41],
+                      iconUrl: "https://cdn-icons-png.flaticon.com/128/484/484167.png",
+                      iconSize: [45, 45],
+                      iconAnchor: [22, 45],
                       popupAnchor: [1, -34],
                       shadowSize: [41, 41],
                     })

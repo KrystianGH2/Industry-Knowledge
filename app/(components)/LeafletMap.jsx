@@ -5,7 +5,6 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-control-geocoder/dist/Control.Geocoder.css";
 import "leaflet-control-geocoder/dist/Control.Geocoder.js";
-import greenIconUrl from "../img/marker-icon-green.png";
 
 const LeafletMap = ({ onLocationChange }) => {
   const [map, setMap] = useState(null);
@@ -19,9 +18,9 @@ const LeafletMap = ({ onLocationChange }) => {
   const greenIcon = useMemo(
     () =>
       new L.Icon({
-        iconUrl: greenIconUrl,
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
+        iconUrl: "https://cdn-icons-png.flaticon.com/128/484/484167.png",
+        iconSize: [40, 40 ],
+        iconAnchor: [20, 40],
         popupAnchor: [1, -34],
         shadowSize: [41, 41],
       }),
@@ -52,6 +51,7 @@ const LeafletMap = ({ onLocationChange }) => {
         fillColor: "#f03",
         fillOpacity: 0.3,
         radius: 8,
+        zIndex: 0,
       }).addTo(leafletMap);
 
       marker.on("dragend", (event) => {
