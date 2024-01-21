@@ -37,17 +37,17 @@ const NavLinks = () => {
             className="hover:text-white transition p-1 md:p-0"
             href="/ClientMember"
           >
-            Client Member
+            Report
           </Link>
           <Link
             className="hover:text-white transition p-1 md:p-0"
-            href="/Member"
+            href="#"
           >
             Member
           </Link>
           <Link
             className="hover:text-white transition p-1 md:p-0"
-            href="/Public"
+            href="#"
           >
             Public
           </Link>{" "}
