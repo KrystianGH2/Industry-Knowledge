@@ -22,12 +22,18 @@ const UserReportList = () => {
           throw new Error(`Failed to fetch users: ${res.statusText}`);
         }
         const data = await res.json();
-        setUserReports(data.userReports);
+  
+        // Sort userReports array by createdAt in descending order
+        const sortedUserReports = data.userReports.sort((a, b) =>
+          new Date(b.createdAt) - new Date(a.createdAt)
+        );
+  
+        setUserReports(sortedUserReports);
       } catch (error) {
         console.error("Error fetching users:", error.message);
       }
     };
-
+  
     fetchUserReport();
   }, []);
 
@@ -42,7 +48,7 @@ const UserReportList = () => {
   return (
     <>
       <h1>User Report List</h1>
-      <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+      <div class="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
         {userReports.map((report) => (
           <figure className="card w-96 bg-base-100 shadow-xl" key={report._id}>
             {typeof window !== "undefined" && (
