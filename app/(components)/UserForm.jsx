@@ -36,13 +36,13 @@ const UserForm = () => {
     }
   };
   return (
-    <div data-theme="cupcake" className="flex  flex-col justify-center items-center mt-10 gap-3">
-      <h1>Create New User</h1>
-      <div className="flex justify-center bg-slate-300 w-full">
+    <div className="flex  flex-col justify-center items-center mt-10 gap-3">
+      <h1 className="mb-6">Sign up</h1>
+      <div className="flex justify-center w-full">
         <form
           onSubmit={handleOnSubmit}
           method="post"
-          className="flex flex-col gap-3 border p-10 max-w-screen-2xl"
+          className="flex flex-col gap-3 border rounded-md p-10 w-full max-w-2xl text-lg"
         >
           <label htmlFor="Full Name">Full Name</label>
           <input
@@ -52,7 +52,7 @@ const UserForm = () => {
             onChange={handleOnChange}
             required={true}
             value={formData.name}
-            className=" bg-slate-400 rounded "
+            className=" rounded h-11"
           />
 
           <label htmlFor="Email">Email</label>
@@ -63,7 +63,7 @@ const UserForm = () => {
             onChange={handleOnChange}
             required={true}
             value={formData.email}
-            className=" bg-slate-400 rounded"
+            className=" rounded h-11"
           />
 
           <label htmlFor="password">Password</label>
@@ -74,14 +74,15 @@ const UserForm = () => {
             onChange={handleOnChange}
             required={true}
             value={formData.password}
-            className=" bg-slate-400 rounded"
+            className=" rounded h-11"
           />
 
-          <input
+          <button
             type="submit"
-            value="Create User"
-            className="bg-blue-300 hover:bg-blue-100"
-          />
+            className="btn btn-active btn-ghost w-56 hover:bg-[#333]"
+          >
+            Register
+          </button>
         </form>
       </div>
 
